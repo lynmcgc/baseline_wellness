@@ -10,7 +10,7 @@ import { PaymentPageModal } from './components/payment/PaymentPageModal';
 import { LanguageProvider } from './context/LanguageContext';
 
 export const BaselineApp: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'landing' | 'dashboard'>('dashboard');
+  const [currentView, setCurrentView] = useState<'landing' | 'dashboard'>('landing');
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
   const [isAddFamilyModalOpen, setIsAddFamilyModalOpen] = useState(false);
   const [isFamilyAlertsModalOpen, setIsFamilyAlertsModalOpen] = useState(false);

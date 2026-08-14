@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Check, Lock, CreditCard, AlertCircle, RefreshCw, KeyRound } from 'lucide-react';
+import { X, Check, Lock, CreditCard, AlertCircle, RefreshCw, ShieldCheck } from 'lucide-react';
 import { PRICING_PLANS } from '../../data/pricingData';
 import { submitCheckoutPayment } from '../../utils/geminiApi';
 import { useLanguage } from '../../context/LanguageContext';
@@ -99,7 +99,7 @@ export const PaymentPageModal: React.FC<PaymentPageModalProps> = ({
             </div>
             <div>
               <h2 className="text-base font-bold text-stone-900">{tText('Baseline Wellness Membership Checkout')}</h2>
-              <p className="text-[11px] text-stone-500">{tText('256-Bit SSL Encrypted · Stripe Hosted Infrastructure')}</p>
+              <p className="text-[11px] text-stone-500">{tText('256-Bit SSL Encrypted · Bank-Grade Security')}</p>
             </div>
           </div>
           <button
@@ -385,7 +385,7 @@ export const PaymentPageModal: React.FC<PaymentPageModalProps> = ({
                     {isProcessing ? (
                       <>
                         <RefreshCw className="w-4 h-4 animate-spin text-teal-300" />
-                        <span>{tText('Verifying Card with Stripe...')}</span>
+                        <span>{tText('Processing Secure Payment...')}</span>
                       </>
                     ) : (
                       <>
@@ -396,11 +396,11 @@ export const PaymentPageModal: React.FC<PaymentPageModalProps> = ({
                   </button>
                 </form>
 
-                {/* API Placeholder & Integration transparency notice */}
-                <div className="p-3 rounded-xl bg-stone-100/80 border border-stone-200 text-[11px] text-stone-600 flex items-start gap-2">
-                  <KeyRound className="w-4 h-4 text-teal-700 shrink-0 mt-0.5" />
+                {/* Satisfaction & Security Guarantee */}
+                <div className="p-3 rounded-xl bg-teal-50/80 border border-teal-200/80 text-[11px] text-teal-900 flex items-start gap-2">
+                  <ShieldCheck className="w-4 h-4 text-teal-700 shrink-0 mt-0.5" />
                   <div>
-                    <strong>Stripe API Credentials:</strong> In production, billing requests route through the backend using <code className="bg-white px-1 rounded border border-stone-200 text-stone-800 font-mono">STRIPE_SECRET_KEY</code>.
+                    <strong>Satisfaction Guarantee:</strong> 30-day money-back guarantee. You can pause or cancel anytime with one click in your account settings.
                   </div>
                 </div>
 
