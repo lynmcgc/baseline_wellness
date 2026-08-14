@@ -1,0 +1,8 @@
+{
+  "name": "Baseline Wellness",
+  "description": "Cross-wearable unified health and wellness platform translating biometric data into plain-language daily insights, family health circle sharing with low-metric alert thresholds, community accountability, and personalized recovery tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
