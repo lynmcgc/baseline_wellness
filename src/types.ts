@@ -107,7 +107,7 @@ export interface FamilyAlert {
   actionSuggested: string;
 }
 
-export interface FamilyMember {
+export type FamilyMember = {
   id: string;
   name: string;
   relationship: FamilyRelationship;
@@ -124,4 +124,14 @@ export interface FamilyMember {
   notificationsEnabled: boolean;
   notes?: string;
   isInvitedPending?: boolean;
+};
+
+export type LanguageCode = 'en' | 'es' | 'fr' | 'de' | 'ja' | 'pt' | 'it' | 'zh';
+
+export interface LanguageOption {
+  code: LanguageCode;
+  name: string;
+  nativeName: string;
+  flag: string;
+  region: string;
 }

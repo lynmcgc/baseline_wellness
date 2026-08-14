@@ -6,8 +6,9 @@ import { Navbar } from './components/Navbar';
 import { LandingPage } from './components/landing/LandingPage';
 import { MemberDashboard } from './components/dashboard/MemberDashboard';
 import { OnboardingModal } from './components/onboarding/OnboardingModal';
+import { LanguageProvider } from './context/LanguageContext';
 
-export const App: React.FC = () => {
+export const BaselineApp: React.FC = () => {
   const [currentView, setCurrentView] = useState<'landing' | 'dashboard'>('dashboard');
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
   const [isAddFamilyModalOpen, setIsAddFamilyModalOpen] = useState(false);
@@ -182,6 +183,14 @@ export const App: React.FC = () => {
         initialGoal={userProfile.goal}
       />
     </div>
+  );
+};
+
+export const App: React.FC = () => {
+  return (
+    <LanguageProvider>
+      <BaselineApp />
+    </LanguageProvider>
   );
 };
 

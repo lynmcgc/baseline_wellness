@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Sparkles, LayoutDashboard, Compass, Bell, Users, ChevronDown, UserPlus, AlertTriangle } from 'lucide-react';
 import { UserProfile, FamilyMember, FamilyAlert } from '../types';
+import { LanguageSelector } from './common/LanguageSelector';
+import { useLanguage } from '../context/LanguageContext';
 
 interface NavbarProps {
   currentView: 'landing' | 'dashboard';
@@ -27,6 +29,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenFamilyAlerts,
   onOpenAddFamily,
 }) => {
+  const { t } = useLanguage();
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -69,42 +72,57 @@ export const Navbar: React.FC<NavbarProps> = ({
                 Wellness
               </span>
             </div>
-            <p className="text-[10px] text-stone-500 font-medium hidden sm:block">Unified Biometric Intelligence</p>
+            <p className="text-[10px] text-stone-500 font-medium hidden sm:block">
+              {t('app.tagline', 'Unified Biometric Intelligence')}
+            </p>
           </div>
         </div>
 
         {/* Center navigation links for Landing */}
         {currentView === 'landing' ? (
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-stone-600">
-            <a href="#overview" className="hover:text-stone-900 transition-colors">Platform</a>
-            <a href="#compatibility" className="hover:text-stone-900 transition-colors">Wearable Sync</a>
-            <a href="#science" className="hover:text-stone-900 transition-colors">Science & Insights</a>
-            <a href="#community" className="hover:text-stone-900 transition-colors">Community</a>
-            <a href="#trust" className="hover:text-stone-900 transition-colors">Compliance & Trust</a>
+            <a href="#overview" className="hover:text-stone-900 transition-colors">
+              {t('nav.platform', 'Platform')}
+            </a>
+            <a href="#compatibility" className="hover:text-stone-900 transition-colors">
+              {t('nav.wearable_sync', 'Wearable Sync')}
+            </a>
+            <a href="#science" className="hover:text-stone-900 transition-colors">
+              {t('nav.science', 'Science & Insights')}
+            </a>
+            <a href="#community" className="hover:text-stone-900 transition-colors">
+              {t('nav.community', 'Community')}
+            </a>
+            <a href="#trust" className="hover:text-stone-900 transition-colors">
+              {t('nav.compliance', 'Compliance & Trust')}
+            </a>
           </nav>
         ) : (
           <div className="hidden md:flex items-center gap-3 text-xs bg-stone-100/80 border border-stone-200 px-3 py-1.5 rounded-full text-stone-700">
             {currentlyViewingMember ? (
               <span className="flex items-center gap-1.5 text-stone-900 font-semibold">
                 <span className="w-2 h-2 rounded-full bg-teal-600"></span>
-                Viewing: {currentlyViewingMember.name} ({currentlyViewingMember.relationship})
+                {t('nav.viewing', 'Viewing')}: {currentlyViewingMember.name} ({currentlyViewingMember.relationship})
               </span>
             ) : (
               <span className="flex items-center gap-1.5 text-teal-700 font-medium">
                 <span className="w-2 h-2 rounded-full bg-teal-600"></span>
-                {userProfile.connectedWearables.length} Devices Active
+                {userProfile.connectedWearables.length} {t('nav.active_devices', 'Devices Active')}
               </span>
             )}
             <span className="text-stone-300">|</span>
             <span className="capitalize text-stone-600 font-medium">
-              Goal: {userProfile.goal.replace('_', ' ')}
+              {t('nav.goal', 'Goal')}: {userProfile.goal.replace('_', ' ')}
             </span>
           </div>
         )}
 
         {/* Right Action Controls */}
-        <div className="flex items-center gap-2.5 sm:gap-3">
+        <div className="flex items-center gap-2 sm:gap-2.5">
           
+          {/* Multi-Language Dropdown Selector */}
+          <LanguageSelector variant="navbar" />
+
           {/* Family Alerts Bell (When on dashboard) */}
           {currentView === 'dashboard' && (
             <button
@@ -114,7 +132,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   ? 'bg-rose-50 border-rose-200 text-rose-800 hover:bg-rose-100 shadow-xs'
                   : 'bg-stone-50 border-stone-200 text-stone-600 hover:text-stone-900 hover:bg-stone-100'
               }`}
-              title="Family Health Alerts"
+              title={t('nav.alerts', 'Family Alerts')}
               id="nav-family-alerts-bell"
             >
               <Bell className={`w-4 h-4 ${unacknowledgedAlerts.length > 0 ? 'text-rose-700 animate-bounce' : ''}`} />
@@ -138,7 +156,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             >
               <Compass className="w-3.5 h-3.5 text-stone-600" />
-              <span className="hidden sm:inline">Public</span> Overview
+              <span className="hidden sm:inline">{t('nav.public_overview', 'Public Overview')}</span>
             </button>
             <button
               id="view-toggle-dashboard"
@@ -150,7 +168,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             >
               <LayoutDashboard className="w-3.5 h-3.5" />
-              Member Hub
+              <span>{t('nav.member_hub', 'Member Hub')}</span>
             </button>
           </div>
 
@@ -161,7 +179,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="bg-stone-900 hover:bg-stone-800 text-white font-medium text-xs sm:text-sm px-4 py-2 rounded-xl transition-all shadow-sm flex items-center gap-1.5 cursor-pointer"
             >
               <Sparkles className="w-3.5 h-3.5 text-teal-300" />
-              Get Started
+              {t('nav.get_started', 'Get Started')}
             </button>
           ) : (
             /* User / Family Switcher Dropdown */
@@ -181,7 +199,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     {currentlyViewingMember ? currentlyViewingMember.name : userProfile.name}
                   </span>
                   <span className="text-[10px] text-stone-500 font-medium">
-                    {currentlyViewingMember ? currentlyViewingMember.relationship : 'Primary Profile'}
+                    {currentlyViewingMember ? currentlyViewingMember.relationship : t('nav.personal_vitals', 'My Personal Vitals')}
                   </span>
                 </div>
                 <ChevronDown className="w-3.5 h-3.5 text-stone-500" />
@@ -191,7 +209,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               {isProfileMenuOpen && (
                 <div className="absolute right-0 mt-2 w-64 bg-white border border-stone-200 rounded-2xl shadow-xl p-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150 text-xs">
                   <div className="px-3 py-2 border-b border-stone-100">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-stone-400">Switch View / Profile</span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-stone-400">
+                      {t('nav.switch_profile', 'Switch View / Profile')}
+                    </span>
                   </div>
 
                   {/* Primary user */}
@@ -212,17 +232,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                       </div>
                       <div>
                         <span className="block">{userProfile.name}</span>
-                        <span className="text-[10px] text-stone-500 font-normal">My Personal Vitals</span>
+                        <span className="text-[10px] text-stone-500 font-normal">
+                          {t('nav.personal_vitals', 'My Personal Vitals')}
+                        </span>
                       </div>
                     </div>
-                    {activeViewingMemberId === null && <span className="text-[10px] text-teal-800 font-bold">Active</span>}
+                    {activeViewingMemberId === null && <span className="text-[10px] text-teal-800 font-bold">{t('nav.active', 'Active')}</span>}
                   </button>
 
                   {/* Family Members Header */}
                   {familyMembers.length > 0 && (
                     <div className="px-3 pt-2 pb-1 border-t border-stone-100 mt-1">
                       <span className="text-[10px] font-bold uppercase tracking-wider text-stone-400 flex items-center gap-1">
-                        <Users className="w-3 h-3" /> Family Circle ({familyMembers.length})
+                        <Users className="w-3 h-3" /> {t('nav.family_circle', 'Family Circle')} ({familyMembers.length})
                       </span>
                     </div>
                   )}
@@ -261,7 +283,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                             </span>
                           </div>
                         </div>
-                        {isMemberActive && <span className="text-[10px] text-teal-800 font-bold">Active</span>}
+                        {isMemberActive && <span className="text-[10px] text-teal-800 font-bold">{t('nav.active', 'Active')}</span>}
                       </button>
                     );
                   })}
@@ -276,7 +298,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       className="w-full p-2 rounded-xl text-teal-800 hover:bg-teal-50 font-semibold flex items-center gap-2 transition-colors cursor-pointer"
                     >
                       <UserPlus className="w-3.5 h-3.5" />
-                      <span>Add Family Profile</span>
+                      <span>{t('nav.add_family', 'Add Family Profile')}</span>
                     </button>
                   </div>
                 </div>

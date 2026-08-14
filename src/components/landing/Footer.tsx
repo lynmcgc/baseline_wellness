@@ -1,5 +1,6 @@
 import React from 'react';
 import { Shield } from 'lucide-react';
+import { LanguageSelector } from '../common/LanguageSelector';
 
 interface FooterProps {
   onOpenGetStarted: () => void;
@@ -24,6 +25,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenGetStarted, onExploreDemo 
             <p className="text-stone-500 text-xs leading-relaxed font-normal">
               Unified wearable intelligence translating raw biometrics into plain-language daily guidance and science-led community accountability.
             </p>
+            <div className="pt-2">
+              <LanguageSelector variant="footer" />
+            </div>
           </div>
 
           {/* Platform Links */}
