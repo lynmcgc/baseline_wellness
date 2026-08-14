@@ -121,7 +121,7 @@ export const PaymentPageModal: React.FC<PaymentPageModalProps> = ({
                 {tText('Welcome to')} {currentPlan.name}!
               </h3>
               <p className="text-sm text-stone-600">
-                {tText('Your subscription is active. All premium biometric analytics, Gemini AI coach briefings, and multi-wearable syntheses have been unlocked for your account.')}
+                {tText('Your subscription is active. All premium biometric analytics, physiological coach briefings, and multi-wearable syntheses have been unlocked for your account.')}
               </p>
               <div className="p-4 rounded-xl bg-stone-50 border border-stone-200 text-xs text-stone-600 text-left space-y-1">
                 <div><strong>Subscription:</strong> {currentPlan.name} ({billingInterval})</div>

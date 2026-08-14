@@ -97,7 +97,7 @@ export const DailySynthesisCard: React.FC<DailySynthesisCardProps> = ({
               {synthesisData && (
                 <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-teal-50 border border-teal-200 text-[10px] font-semibold text-teal-800">
                   <Sparkles className="w-2.5 h-2.5" />
-                  {synthesisData.source === 'gemini' ? 'Gemini 3.7 AI' : 'Baseline Model'}
+                  {synthesisData.source === 'gemini' ? 'AI Synthesis' : 'Baseline Model'}
                 </span>
               )}
             </div>
@@ -123,10 +123,10 @@ export const DailySynthesisCard: React.FC<DailySynthesisCardProps> = ({
               onClick={handleRefreshSynthesis}
               disabled={loadingAi}
               className="p-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 border border-stone-200 transition-all flex items-center gap-1.5 text-xs font-semibold cursor-pointer shrink-0 disabled:opacity-60"
-              title="Generate new synthesis with Gemini API"
+              title="Generate fresh physiological synthesis"
             >
               <RefreshCw className={`w-4 h-4 text-teal-800 ${loadingAi ? 'animate-spin' : ''}`} />
-              <span className="hidden md:inline">{loadingAi ? 'Synthesizing...' : 'AI Synthesis'}</span>
+              <span className="hidden md:inline">{loadingAi ? 'Synthesizing...' : 'Refresh Synthesis'}</span>
             </button>
 
             <button
@@ -153,7 +153,7 @@ export const DailySynthesisCard: React.FC<DailySynthesisCardProps> = ({
                 className="text-xs font-semibold text-teal-800 hover:text-teal-900 flex items-center gap-1 cursor-pointer bg-white px-2.5 py-1 rounded-lg border border-stone-200 shadow-2xs"
               >
                 <Bot className="w-3.5 h-3.5" />
-                <span>{showCoachPrompt ? 'Close AI Coach' : 'Ask AI Coach'}</span>
+                <span>{showCoachPrompt ? 'Close Biometric Coach' : 'Ask Biometric Coach'}</span>
               </button>
               <span className="text-[11px] text-stone-500 font-normal hidden sm:inline">
                 {t('synthesis.calibrated_to', 'Calibrated to your')} {userProfile.goal.replace('_', ' ')} {t('synthesis.goal_suffix', 'goal')}
@@ -170,8 +170,7 @@ export const DailySynthesisCard: React.FC<DailySynthesisCardProps> = ({
             <div className="p-3.5 rounded-xl bg-white border border-teal-200/80 space-y-3 mt-2">
               <div className="flex items-center gap-2 text-xs font-semibold text-teal-900">
                 <Bot className="w-4 h-4 text-teal-700" />
-                <span>Gemini Biometric Coach</span>
-                <span className="text-[10px] text-stone-400 font-normal">· Powered by server-side GEMINI_API_KEY</span>
+                <span>Biometric Recovery Coach</span>
               </div>
               <form onSubmit={handleAskCoach} className="flex gap-2">
                 <input

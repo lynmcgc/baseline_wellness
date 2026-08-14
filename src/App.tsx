@@ -7,7 +7,6 @@ import { LandingPage } from './components/landing/LandingPage';
 import { MemberDashboard } from './components/dashboard/MemberDashboard';
 import { OnboardingModal } from './components/onboarding/OnboardingModal';
 import { PaymentPageModal } from './components/payment/PaymentPageModal';
-import { ApiStatusModal } from './components/common/ApiStatusModal';
 import { LanguageProvider } from './context/LanguageContext';
 
 export const BaselineApp: React.FC = () => {
@@ -16,7 +15,6 @@ export const BaselineApp: React.FC = () => {
   const [isAddFamilyModalOpen, setIsAddFamilyModalOpen] = useState(false);
   const [isFamilyAlertsModalOpen, setIsFamilyAlertsModalOpen] = useState(false);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
-  const [isApiModalOpen, setIsApiModalOpen] = useState(false);
   const [selectedPlanForPayment, setSelectedPlanForPayment] = useState<'starter' | 'pro' | 'family'>('pro');
   
   // Active member being viewed on the dashboard (null = viewing primary user Alex Morgan)
@@ -166,7 +164,6 @@ export const BaselineApp: React.FC = () => {
             onOpenGetStarted={() => setIsOnboardingOpen(true)}
             onExploreDemo={() => setCurrentView('dashboard')}
             onSelectPlan={(planId) => handleSelectPlanFromPublic(planId)}
-            onOpenApiStatus={() => setIsApiModalOpen(true)}
           />
         ) : (
           <MemberDashboard
@@ -193,7 +190,6 @@ export const BaselineApp: React.FC = () => {
               setSelectedPlanForPayment(planId || 'pro');
               setIsPaymentModalOpen(true);
             }}
-            onOpenApiStatus={() => setIsApiModalOpen(true)}
           />
         )}
       </div>
@@ -204,12 +200,6 @@ export const BaselineApp: React.FC = () => {
         onClose={() => setIsPaymentModalOpen(false)}
         initialPlanId={selectedPlanForPayment}
         onPaymentSuccess={handlePaymentSuccess}
-      />
-
-      {/* API Keys Configuration Status Modal */}
-      <ApiStatusModal
-        isOpen={isApiModalOpen}
-        onClose={() => setIsApiModalOpen(false)}
       />
 
       {/* Onboarding / Get Started Modal Flow */}

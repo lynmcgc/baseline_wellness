@@ -24,7 +24,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     name: 'Baseline Pro',
     popular: true,
     badge: 'Most Popular for Bio-Optimizers',
-    tagline: 'Comprehensive cross-wearable synthesis with Gemini AI physiological coach.',
+    tagline: 'Comprehensive cross-wearable synthesis with intelligent physiological coaching.',
     monthlyPrice: 19,
     annualMonthlyPrice: 15,
     annualBilledTotal: 180,
@@ -32,7 +32,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     ctaText: 'Upgrade to Pro Experience',
     features: [
       'Unlimited multi-wearable aggregation (Garmin + Oura + Apple + WHOOP + Fitbit)',
-      'Gemini 3.7 AI Daily Plain-Language Biometric Briefing',
+      'Daily Plain-Language Biometric Intelligence Briefing',
       'Interactive 24/7 AI Physiological Coach Q&A',
       'Live weather & circadian outdoor workout optimizer',
       'Local wellness & recovery spot map discovery with navigation',

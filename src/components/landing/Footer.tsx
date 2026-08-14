@@ -6,10 +6,9 @@ import { useLanguage } from '../../context/LanguageContext';
 interface FooterProps {
   onOpenGetStarted: () => void;
   onExploreDemo: () => void;
-  onOpenApiStatus?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenGetStarted, onExploreDemo, onOpenApiStatus }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenGetStarted, onExploreDemo }) => {
   const { t } = useLanguage();
 
   return (
@@ -31,14 +30,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenGetStarted, onExploreDemo,
             </p>
             <div className="pt-2 flex flex-col gap-2">
               <LanguageSelector variant="footer" />
-              {onOpenApiStatus && (
-                <button
-                  onClick={onOpenApiStatus}
-                  className="text-left text-teal-800 hover:text-teal-900 font-semibold cursor-pointer"
-                >
-                  ⚡ API Keys & Configuration Status
-                </button>
-              )}
             </div>
           </div>
 

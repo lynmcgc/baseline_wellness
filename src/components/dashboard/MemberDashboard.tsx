@@ -10,8 +10,7 @@ import {
   MapPin,
   LayoutDashboard,
   Users,
-  CreditCard,
-  Key
+  CreditCard
 } from 'lucide-react';
 import { UserProfile, CommunityClass, UserGoal, FamilyMember, FamilyAlert, MetricDefinition, WellnessLocation } from '../../types';
 import { ALL_METRICS, GOAL_HERO_PRESETS } from '../../data/mockMetrics';
@@ -27,7 +26,6 @@ import { EditFamilyMemberModal } from '../family/EditFamilyMemberModal';
 import { FamilyAlertsModal } from '../family/FamilyAlertsModal';
 import { MemberMapView } from '../member/MemberMapView';
 import { PaymentPageModal } from '../payment/PaymentPageModal';
-import { ApiStatusModal } from '../common/ApiStatusModal';
 import { useLanguage } from '../../context/LanguageContext';
 
 interface MemberDashboardProps {
@@ -51,7 +49,6 @@ interface MemberDashboardProps {
   onOpenAlertsModal?: () => void;
   onOpenAddFamilyModal?: () => void;
   onOpenPaymentModal?: (planId?: 'starter' | 'pro' | 'family') => void;
-  onOpenApiStatus?: () => void;
 }
 
 export const MemberDashboard: React.FC<MemberDashboardProps> = ({
@@ -75,14 +72,12 @@ export const MemberDashboard: React.FC<MemberDashboardProps> = ({
   onOpenAlertsModal,
   onOpenAddFamilyModal,
   onOpenPaymentModal: _onOpenPaymentModal,
-  onOpenApiStatus: _onOpenApiStatus,
 }) => {
   const { t, tText } = useLanguage();
   const [activeTab, setActiveTab] = useState<'vitals' | 'map' | 'family'>('vitals');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [isConfigModalOpen, setIsConfigModalOpen] = useState(false);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
-  const [isApiModalOpen, setIsApiModalOpen] = useState(false);
   const [paymentPlanChoice, setPaymentPlanChoice] = useState<'starter' | 'pro' | 'family'>('pro');
   const [activePlayingClass, setActivePlayingClass] = useState<CommunityClass | null>(null);
   const [isSyncing, setIsSyncing] = useState(false);
@@ -205,15 +200,6 @@ export const MemberDashboard: React.FC<MemberDashboardProps> = ({
             >
               <CreditCard className="w-3.5 h-3.5 text-amber-700" />
               <span>{userProfile.tier === 'pro' ? 'Pro Member' : 'Upgrade Plan'}</span>
-            </button>
-
-            <button
-              onClick={() => setIsApiModalOpen(true)}
-              className="px-2.5 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-600 font-medium transition-all flex items-center gap-1 cursor-pointer shrink-0"
-              title="API Configuration Status"
-            >
-              <Key className="w-3.5 h-3.5 text-stone-500" />
-              <span className="hidden sm:inline">APIs</span>
             </button>
           </div>
 
@@ -480,12 +466,6 @@ export const MemberDashboard: React.FC<MemberDashboardProps> = ({
           </div>
           <div className="flex items-center gap-3">
             <button
-              onClick={() => setIsApiModalOpen(true)}
-              className="text-xs text-stone-500 hover:text-stone-900 transition-colors cursor-pointer"
-            >
-              API Status
-            </button>
-            <button
               onClick={onSwitchToLanding}
               className="text-xs text-teal-800 hover:text-teal-900 transition-colors shrink-0 underline cursor-pointer font-medium"
             >
@@ -511,12 +491,6 @@ export const MemberDashboard: React.FC<MemberDashboardProps> = ({
         onClose={() => setIsPaymentModalOpen(false)}
         initialPlanId={paymentPlanChoice}
         onPaymentSuccess={handlePaymentSuccess}
-      />
-
-      {/* API Keys and Integrations Status Modal */}
-      <ApiStatusModal
-        isOpen={isApiModalOpen}
-        onClose={() => setIsApiModalOpen(false)}
       />
 
       {/* Community Class Player Modal */}

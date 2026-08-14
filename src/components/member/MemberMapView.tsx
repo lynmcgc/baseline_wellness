@@ -373,7 +373,7 @@ export const MemberMapView: React.FC<MemberMapViewProps> = ({
                 </div>
 
                 <div className="relative z-10 flex items-center justify-between text-[11px] text-stone-400 bg-stone-900/90 backdrop-blur-sm p-2 rounded-xl border border-stone-800">
-                  <span>Google Maps Platform configured via <code className="text-teal-300 font-mono">GOOGLE_MAPS_PLATFORM_KEY</code></span>
+                  <span>Interactive Biometric & Recovery Map</span>
                   <span className="text-stone-300 font-semibold">{filteredLocations.length} locations ready</span>
                 </div>
               </div>

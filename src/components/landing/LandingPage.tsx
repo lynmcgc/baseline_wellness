@@ -13,14 +13,12 @@ interface LandingPageProps {
   onOpenGetStarted: () => void;
   onExploreDemo: () => void;
   onSelectPlan?: (planId: 'starter' | 'pro' | 'family', interval: 'monthly' | 'annual') => void;
-  onOpenApiStatus?: () => void;
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({
   onOpenGetStarted,
   onExploreDemo,
   onSelectPlan,
-  onOpenApiStatus,
 }) => {
   return (
     <div className="w-full min-h-screen bg-stone-50 text-stone-900 flex flex-col">
@@ -40,7 +38,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       <Footer
         onOpenGetStarted={onOpenGetStarted}
         onExploreDemo={onExploreDemo}
-        onOpenApiStatus={onOpenApiStatus}
       />
     </div>
   );

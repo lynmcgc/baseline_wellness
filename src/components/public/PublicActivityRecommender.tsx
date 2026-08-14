@@ -169,7 +169,7 @@ export const PublicActivityRecommender: React.FC<{
               </div>
               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-800 text-xs font-semibold">
                 <Sparkles className="w-3 h-3" />
-                {result.source === 'gemini' ? 'Gemini 3.7 AI Tailored' : 'Biometric Baseline Match'}
+                {result.source === 'gemini' ? 'Physiologically Tailored' : 'Biometric Baseline Match'}
               </span>
             </div>
 
