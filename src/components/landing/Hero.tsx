@@ -1,5 +1,6 @@
 import React from 'react';
 import { Sparkles, ArrowRight, ShieldCheck, Activity, Watch, CircleDot, HeartPulse, Zap, CheckCircle2 } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface HeroProps {
   onGetStarted: () => void;
@@ -7,6 +8,8 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onGetStarted, onExploreDemo }) => {
+  const { t, tText } = useLanguage();
+
   return (
     <section id="overview" className="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden">
       {/* Background subtle ambient warmth */}
@@ -21,25 +24,25 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, onExploreDemo }) => {
             {/* Scientific Credibility Pill */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-stone-200 shadow-xs text-xs font-medium text-stone-700">
               <span className="w-2 h-2 rounded-full bg-teal-600"></span>
-              <span>Cross-Wearable Biometric Synthesis</span>
+              <span>{t('hero.pill', 'Cross-Wearable Biometric Synthesis')}</span>
               <span className="text-stone-300">·</span>
-              <span className="text-teal-800 font-semibold">Non-Diagnostic Insight</span>
+              <span className="text-teal-800 font-semibold">{t('hero.pill_sub', 'Non-Diagnostic Insight')}</span>
             </div>
 
             {/* Main Headline */}
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-stone-900 leading-[1.15]">
-              Turn raw wearable data into <span className="text-teal-800">clear daily guidance.</span>
+              {t('hero.title_start', 'Turn raw wearable data into')} <span className="text-teal-800">{t('hero.title_highlight', 'clear daily guidance.')}</span>
             </h1>
 
             {/* Descriptive Body */}
             <p className="text-base sm:text-lg text-stone-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
-              Your Garmin, Oura, Apple Watch, or WHOOP collect thousands of data points every night. Baseline aggregates them into one unified, plain-language dashboard layered with community accountability to help you optimize recovery, sleep, and longevity.
+              {t('hero.description', 'Your Garmin, Oura, Apple Watch, or WHOOP collect thousands of data points every night. Baseline aggregates them into one unified, plain-language dashboard layered with community accountability to help you optimize recovery, sleep, and longevity.')}
             </p>
 
             {/* Brand-Agnostic Wearable Compatibility Ticker */}
             <div className="pt-2 pb-2">
               <p className="text-xs font-semibold uppercase tracking-wider text-stone-500 mb-3">
-                Works seamlessly with your preferred hardware
+                {t('hero.works_with', 'Works seamlessly with your preferred hardware')}
               </p>
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
                 {[
@@ -57,7 +60,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, onExploreDemo }) => {
                     {device.name}
                   </span>
                 ))}
-                <span className="text-xs text-stone-500 self-center px-1.5">+ more</span>
+                <span className="text-xs text-stone-500 self-center px-1.5">{t('hero.more', '+ more')}</span>
               </div>
             </div>
 
@@ -68,7 +71,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, onExploreDemo }) => {
                 onClick={onGetStarted}
                 className="w-full sm:w-auto bg-stone-900 hover:bg-stone-800 text-white font-medium text-base px-8 py-3.5 rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer group"
               >
-                <span>Get Started</span>
+                <span>{t('nav.get_started', 'Get Started')}</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </button>
               
@@ -77,14 +80,14 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, onExploreDemo }) => {
                 onClick={onExploreDemo}
                 className="w-full sm:w-auto bg-white hover:bg-stone-50 text-stone-800 border border-stone-300 font-medium text-base px-6 py-3.5 rounded-xl transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
               >
-                <span>Explore Live Dashboard</span>
+                <span>{t('hero.explore_demo', 'Explore Live Dashboard')}</span>
               </button>
             </div>
 
             {/* Guardrail Compliance Notice */}
             <div className="flex items-center justify-center lg:justify-start gap-2 text-xs text-stone-500 pt-2">
               <ShieldCheck className="w-4 h-4 text-teal-700 shrink-0" />
-              <span>Informational wellness insight only · Zero medical claims · Secure GDPR/HIPAA-safe data handling</span>
+              <span>{t('hero.disclaimer', 'Informational wellness insight only · Zero medical claims · Secure GDPR/HIPAA-safe data handling')}</span>
             </div>
 
           </div>
@@ -98,13 +101,13 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, onExploreDemo }) => {
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-teal-600"></span>
-                    <h3 className="font-semibold text-sm text-stone-800">Daily Biometric Synthesis</h3>
+                    <h3 className="font-semibold text-sm text-stone-800">{t('synthesis.title', 'Daily Biometric Synthesis')}</h3>
                   </div>
-                  <p className="text-xs text-stone-500">Unified from Garmin + Oura streams</p>
+                  <p className="text-xs text-stone-500">{tText('Unified from Garmin Connect & Oura Ring')}</p>
                 </div>
                 <div className="text-right">
                   <span className="text-2xl font-bold font-display text-teal-800">88</span>
-                  <span className="text-xs text-stone-500 font-medium block">Readiness Index</span>
+                  <span className="text-xs text-stone-500 font-medium block">{t('dashboard.readiness_score', 'Daily Readiness')}</span>
                 </div>
               </div>
 
@@ -113,51 +116,51 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, onExploreDemo }) => {
                 <div className="p-4 rounded-xl bg-stone-50 border border-stone-200/80">
                   <div className="flex items-center justify-between text-xs font-semibold text-teal-900 mb-1.5">
                     <span className="flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5 text-teal-700" /> Plain-Language Translation
+                      <Sparkles className="w-3.5 h-3.5 text-teal-700" /> {t('metric.plain_insight', 'Plain-Language Insight')}
                     </span>
-                    <span className="text-stone-400 font-normal">Updated 6:30 AM</span>
+                    <span className="text-stone-400 font-normal">6:30 AM</span>
                   </div>
                   <p className="text-xs sm:text-sm text-stone-700 leading-relaxed">
-                    "Your autonomic nervous system shows strong parasympathetic recovery (+15% HRV). You have high physiological reserve for demanding focus or training today."
+                    "{tText('Your autonomic nervous system is in a receptive, primed state. Parasympathetic tone dominated your overnight recovery window.')}"
                   </p>
                 </div>
 
                 {/* Sub-metrics breakdown */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="p-3 rounded-xl bg-stone-50/70 border border-stone-200">
-                    <span className="text-xs text-stone-500 block mb-1">Overnight HRV (rMSSD)</span>
+                    <span className="text-xs text-stone-500 block mb-1">{t('metric.hrv_rmssd', 'Heart Rate Variability (HRV)')}</span>
                     <div className="flex items-baseline gap-2">
                       <span className="text-lg font-bold text-stone-900">68 ms</span>
                       <span className="text-xs text-teal-700 font-medium">+15.2%</span>
                     </div>
-                    <span className="text-[11px] text-stone-500 mt-1 block">Optimal vagal tone</span>
+                    <span className="text-[11px] text-stone-500 mt-1 block">{t('dashboard.optimal', 'Optimal State')}</span>
                   </div>
 
                   <div className="p-3 rounded-xl bg-stone-50/70 border border-stone-200">
-                    <span className="text-xs text-stone-500 block mb-1">Restorative Sleep</span>
+                    <span className="text-xs text-stone-500 block mb-1">{t('metric.sleep_restorative', 'Restorative Sleep (Deep + REM)')}</span>
                     <div className="flex items-baseline gap-2">
                       <span className="text-lg font-bold text-stone-900">2h 15m</span>
                       <span className="text-xs text-teal-700 font-medium">34% total</span>
                     </div>
-                    <span className="text-[11px] text-stone-500 mt-1 block">Deep & REM stage balance</span>
+                    <span className="text-[11px] text-stone-500 mt-1 block">{t('dashboard.restorative', 'Deep Restorative')}</span>
                   </div>
 
                   <div className="p-3 rounded-xl bg-stone-50/70 border border-stone-200">
-                    <span className="text-xs text-stone-500 block mb-1">Resting Heart Rate</span>
+                    <span className="text-xs text-stone-500 block mb-1">{t('metric.resting_hr', 'Resting Heart Rate (RHR)')}</span>
                     <div className="flex items-baseline gap-2">
                       <span className="text-lg font-bold text-stone-900">51 bpm</span>
                       <span className="text-xs text-teal-700 font-medium">-3 bpm</span>
                     </div>
-                    <span className="text-[11px] text-stone-500 mt-1 block">Below 30-day baseline</span>
+                    <span className="text-[11px] text-stone-500 mt-1 block">{t('metric.vs_baseline', 'vs baseline')}</span>
                   </div>
 
                   <div className="p-3 rounded-xl bg-stone-50/70 border border-stone-200">
-                    <span className="text-xs text-stone-500 block mb-1">Daytime Stress Ratio</span>
+                    <span className="text-xs text-stone-500 block mb-1">{t('metric.stress_load', 'Daily Stress Load')}</span>
                     <div className="flex items-baseline gap-2">
                       <span className="text-lg font-bold text-stone-900">32 / 100</span>
                       <span className="text-xs text-teal-800 font-medium">Low Load</span>
                     </div>
-                    <span className="text-[11px] text-stone-500 mt-1 block">64% in restorative zone</span>
+                    <span className="text-[11px] text-stone-500 mt-1 block">{t('dashboard.optimal', 'Optimal State')}</span>
                   </div>
                 </div>
 
@@ -165,7 +168,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, onExploreDemo }) => {
                 <div className="flex items-center gap-3 p-3 rounded-xl bg-stone-50 border border-stone-200 text-xs text-stone-700">
                   <CheckCircle2 className="w-4 h-4 text-teal-700 shrink-0" />
                   <span>
-                    <strong className="text-stone-900 font-semibold">Community Challenge Active:</strong> Day 4 of 7 on Sleep Anchor.
+                    <strong className="text-stone-900 font-semibold">{t('community.title', 'Community')}:</strong> {t('community.day', 'Day')} 4 {t('community.of', 'of')} 7
                   </span>
                 </div>
               </div>

@@ -6,6 +6,8 @@ import { Navbar } from './components/Navbar';
 import { LandingPage } from './components/landing/LandingPage';
 import { MemberDashboard } from './components/dashboard/MemberDashboard';
 import { OnboardingModal } from './components/onboarding/OnboardingModal';
+import { PaymentPageModal } from './components/payment/PaymentPageModal';
+import { ApiStatusModal } from './components/common/ApiStatusModal';
 import { LanguageProvider } from './context/LanguageContext';
 
 export const BaselineApp: React.FC = () => {
@@ -13,6 +15,9 @@ export const BaselineApp: React.FC = () => {
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
   const [isAddFamilyModalOpen, setIsAddFamilyModalOpen] = useState(false);
   const [isFamilyAlertsModalOpen, setIsFamilyAlertsModalOpen] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [isApiModalOpen, setIsApiModalOpen] = useState(false);
+  const [selectedPlanForPayment, setSelectedPlanForPayment] = useState<'starter' | 'pro' | 'family'>('pro');
   
   // Active member being viewed on the dashboard (null = viewing primary user Alex Morgan)
   const [activeViewingMemberId, setActiveViewingMemberId] = useState<string | null>(null);
@@ -45,6 +50,17 @@ export const BaselineApp: React.FC = () => {
       ...prev,
       ...newProfile,
     }));
+    setCurrentView('dashboard');
+  };
+
+  const handleSelectPlanFromPublic = (planId: 'starter' | 'pro' | 'family') => {
+    setSelectedPlanForPayment(planId);
+    setIsPaymentModalOpen(true);
+  };
+
+  const handlePaymentSuccess = (tier: 'starter' | 'pro' | 'family') => {
+    setUserProfile((prev) => ({ ...prev, tier }));
+    setIsPaymentModalOpen(false);
     setCurrentView('dashboard');
   };
 
@@ -149,6 +165,8 @@ export const BaselineApp: React.FC = () => {
           <LandingPage
             onOpenGetStarted={() => setIsOnboardingOpen(true)}
             onExploreDemo={() => setCurrentView('dashboard')}
+            onSelectPlan={(planId) => handleSelectPlanFromPublic(planId)}
+            onOpenApiStatus={() => setIsApiModalOpen(true)}
           />
         ) : (
           <MemberDashboard
@@ -171,9 +189,28 @@ export const BaselineApp: React.FC = () => {
             onCloseAlertsModal={() => setIsFamilyAlertsModalOpen(false)}
             onOpenAlertsModal={() => setIsFamilyAlertsModalOpen(true)}
             onOpenAddFamilyModal={() => setIsAddFamilyModalOpen(true)}
+            onOpenPaymentModal={(planId) => {
+              setSelectedPlanForPayment(planId || 'pro');
+              setIsPaymentModalOpen(true);
+            }}
+            onOpenApiStatus={() => setIsApiModalOpen(true)}
           />
         )}
       </div>
+
+      {/* Payment / Checkout Page Modal */}
+      <PaymentPageModal
+        isOpen={isPaymentModalOpen}
+        onClose={() => setIsPaymentModalOpen(false)}
+        initialPlanId={selectedPlanForPayment}
+        onPaymentSuccess={handlePaymentSuccess}
+      />
+
+      {/* API Keys Configuration Status Modal */}
+      <ApiStatusModal
+        isOpen={isApiModalOpen}
+        onClose={() => setIsApiModalOpen(false)}
+      />
 
       {/* Onboarding / Get Started Modal Flow */}
       <OnboardingModal
@@ -195,4 +232,5 @@ export const App: React.FC = () => {
 };
 
 export default App;
+
 

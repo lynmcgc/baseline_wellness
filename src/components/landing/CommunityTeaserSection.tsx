@@ -1,12 +1,15 @@
 import React from 'react';
 import { Users, Video, Award, Clock, ArrowRight } from 'lucide-react';
 import { MOCK_CHALLENGES, MOCK_CLASSES } from '../../data/mockMetrics';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface CommunityTeaserProps {
   onExplore: () => void;
 }
 
 export const CommunityTeaserSection: React.FC<CommunityTeaserProps> = ({ onExplore }) => {
+  const { t, tText } = useLanguage();
+
   return (
     <section id="community" className="py-20 bg-stone-100/60 border-t border-stone-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,13 +18,13 @@ export const CommunityTeaserSection: React.FC<CommunityTeaserProps> = ({ onExplo
         <div className="max-w-3xl mx-auto text-center space-y-4 mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-stone-200 text-xs font-semibold text-teal-800 shadow-xs">
             <Users className="w-3.5 h-3.5" />
-            <span>Layered Community & Guidance</span>
+            <span>{t('community.teaser_pill', 'Layered Community & Guidance')}</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-stone-900 tracking-tight">
-            Accountability and science-led classes in your corner.
+            {t('community.teaser_title', 'Accountability and science-led classes in your corner.')}
           </h2>
           <p className="text-sm text-stone-600 max-w-xl mx-auto font-normal">
-            Supporting your biometric data with live physiological practices: breathwork, non-sleep deep rest (NSDR), mobility, and cohort-based consistency challenges.
+            {t('community.teaser_desc', 'Supporting your biometric data with live physiological practices: breathwork, non-sleep deep rest (NSDR), mobility, and cohort-based consistency challenges.')}
           </p>
         </div>
 
@@ -34,12 +37,12 @@ export const CommunityTeaserSection: React.FC<CommunityTeaserProps> = ({ onExplo
               <div>
                 <h3 className="font-bold text-base text-stone-900 flex items-center gap-2">
                   <Award className="w-4 h-4 text-teal-800" />
-                  Biometric Consistency Challenges
+                  {t('community.challenges', 'Biometric Consistency Challenges')}
                 </h3>
-                <p className="text-xs text-stone-500 mt-0.5">Focus on sustainable habit formation</p>
+                <p className="text-xs text-stone-500 mt-0.5 font-normal">{t('community.challenges_sub', 'Focus on sustainable habit formation')}</p>
               </div>
               <span className="text-xs px-2 py-0.5 rounded bg-teal-50 border border-teal-200 text-teal-800 font-medium">
-                Active Cohorts
+                {t('community.cohorts', 'Active Cohorts')}
               </span>
             </div>
 
@@ -50,10 +53,10 @@ export const CommunityTeaserSection: React.FC<CommunityTeaserProps> = ({ onExplo
                   className="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-2"
                 >
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-semibold text-stone-800">{ch.title}</span>
-                    <span className="text-stone-500">{ch.participantsCount.toLocaleString()} members</span>
+                    <span className="font-semibold text-stone-800">{tText(ch.title)}</span>
+                    <span className="text-stone-500">{ch.participantsCount.toLocaleString()} {t('community.participants', 'members')}</span>
                   </div>
-                  <p className="text-xs text-stone-600">{ch.targetDescription}</p>
+                  <p className="text-xs text-stone-600 font-normal">{tText(ch.targetDescription)}</p>
                   <div className="pt-1">
                     <div className="w-full bg-stone-200 h-1.5 rounded-full overflow-hidden">
                       <div
@@ -73,12 +76,12 @@ export const CommunityTeaserSection: React.FC<CommunityTeaserProps> = ({ onExplo
               <div>
                 <h3 className="font-bold text-base text-stone-900 flex items-center gap-2">
                   <Video className="w-4 h-4 text-teal-800" />
-                  Expert-Led Recovery Protocols
+                  {t('community.classes', 'Expert-Led Recovery Protocols')}
                 </h3>
-                <p className="text-xs text-stone-500 mt-0.5">Live sessions & on-demand audio guides</p>
+                <p className="text-xs text-stone-500 mt-0.5 font-normal">{t('community.classes_sub', 'Live sessions & on-demand audio guides')}</p>
               </div>
               <span className="text-xs px-2 py-0.5 rounded bg-stone-100 border border-stone-200 text-stone-700 font-medium">
-                Science Faculty
+                {t('community.science_faculty', 'Science Faculty')}
               </span>
             </div>
 
@@ -91,14 +94,14 @@ export const CommunityTeaserSection: React.FC<CommunityTeaserProps> = ({ onExplo
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
                       <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-stone-200 text-stone-700">
-                        {cl.category}
+                        {tText(cl.category)}
                       </span>
-                      <span className="text-xs text-stone-500 flex items-center gap-1">
+                      <span className="text-xs text-stone-500 flex items-center gap-1 font-normal">
                         <Clock className="w-3 h-3" /> {cl.durationMinutes} min
                       </span>
                     </div>
-                    <h4 className="text-xs sm:text-sm font-semibold text-stone-800">{cl.title}</h4>
-                    <p className="text-xs text-stone-500">{cl.instructor}</p>
+                    <h4 className="text-xs sm:text-sm font-semibold text-stone-800">{tText(cl.title)}</h4>
+                    <p className="text-xs text-stone-500 font-normal">{cl.instructor}</p>
                   </div>
                 </div>
               ))}
@@ -113,7 +116,7 @@ export const CommunityTeaserSection: React.FC<CommunityTeaserProps> = ({ onExplo
             onClick={onExplore}
             className="inline-flex items-center gap-2 text-xs sm:text-sm text-teal-800 hover:text-teal-900 font-semibold transition-colors cursor-pointer"
           >
-            <span>View all community challenges in member dashboard</span>
+            <span>{t('community.view_all_challenges', 'View all community challenges in member dashboard')}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

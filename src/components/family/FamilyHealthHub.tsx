@@ -14,6 +14,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { FamilyMember, FamilyAlert } from '../../types';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface FamilyHealthHubProps {
   familyMembers: FamilyMember[];
@@ -34,6 +35,7 @@ export const FamilyHealthHub: React.FC<FamilyHealthHubProps> = ({
   onOpenEditModal,
   onOpenAlertsModal,
 }) => {
+  const { t, tText } = useLanguage();
   const activeUnreadAlerts = alerts.filter((a) => !a.isAcknowledged);
 
   return (
@@ -48,14 +50,14 @@ export const FamilyHealthHub: React.FC<FamilyHealthHubProps> = ({
           <div>
             <div className="flex items-center gap-2.5 flex-wrap">
               <h2 className="text-base sm:text-lg font-bold text-stone-900">
-                Family Health Circle & Biometric Alerts
+                {t('family.hub_title', 'Family Health Circle & Biometric Alerts')}
               </h2>
               <span className="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-teal-50 border border-teal-200 text-teal-800">
-                {familyMembers.length} Profiles Connected
+                {familyMembers.length} {t('family.profiles_connected', 'Profiles Connected')}
               </span>
             </div>
             <p className="text-xs text-stone-500 font-normal mt-0.5">
-              Shared biometric visibility with real-time alerts when low health metrics or fatigue spikes occur
+              {t('family.hub_desc', 'Shared biometric visibility with real-time alerts when low health metrics or fatigue spikes occur')}
             </p>
           </div>
         </div>
@@ -72,7 +74,7 @@ export const FamilyHealthHub: React.FC<FamilyHealthHubProps> = ({
             id="family-hub-alerts-btn"
           >
             <Bell className={`w-3.5 h-3.5 ${activeUnreadAlerts.length > 0 ? 'text-rose-700 animate-bounce' : 'text-stone-500'}`} />
-            <span>Alerts Center</span>
+            <span>{t('family.alerts_center', 'Alerts Center')}</span>
             {activeUnreadAlerts.length > 0 && (
               <span className="w-5 h-5 rounded-full bg-rose-600 text-white text-[10px] font-bold flex items-center justify-center">
                 {activeUnreadAlerts.length}
@@ -86,7 +88,7 @@ export const FamilyHealthHub: React.FC<FamilyHealthHubProps> = ({
             id="add-family-member-btn"
           >
             <UserPlus className="w-3.5 h-3.5 text-teal-300" />
-            <span>Add Family Member</span>
+            <span>{t('family.add_member_btn', 'Add Family Member')}</span>
           </button>
         </div>
       </div>
@@ -126,7 +128,7 @@ export const FamilyHealthHub: React.FC<FamilyHealthHubProps> = ({
                         <h3 className="font-bold text-stone-900 text-sm">{member.name}</h3>
                       </div>
                       <span className="text-[11px] text-stone-500 font-medium block">
-                        {member.relationship}
+                        {tText(member.relationship)}
                       </span>
                     </div>
                   </div>
@@ -134,7 +136,7 @@ export const FamilyHealthHub: React.FC<FamilyHealthHubProps> = ({
                   <button
                     onClick={() => onOpenEditModal(member)}
                     className="w-7 h-7 rounded-lg bg-white hover:bg-stone-200 text-stone-500 hover:text-stone-800 border border-stone-200 flex items-center justify-center transition-colors cursor-pointer"
-                    title="Edit Thresholds & Permissions"
+                    title={t('family.thresholds', 'Safety Alert Thresholds')}
                   >
                     <Sliders className="w-3.5 h-3.5" />
                   </button>
@@ -143,7 +145,7 @@ export const FamilyHealthHub: React.FC<FamilyHealthHubProps> = ({
                 {/* Readiness & Vitals Bar */}
                 <div className="p-3 bg-white rounded-xl border border-stone-200 space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-medium text-stone-600">Daily Recovery Score</span>
+                    <span className="text-[11px] font-medium text-stone-600">{t('metric.recovery_score', 'Daily Recovery Score')}</span>
                     <div className="flex items-center gap-1.5">
                       <span className="text-base font-extrabold text-stone-900">{member.readinessScore}</span>
                       <span className="text-[10px] text-stone-400 font-medium">/100</span>
@@ -156,7 +158,7 @@ export const FamilyHealthHub: React.FC<FamilyHealthHubProps> = ({
                             : 'bg-rose-50 text-rose-800 border border-rose-200 animate-pulse'
                         }`}
                       >
-                        {member.readinessStatus}
+                        {tText(member.readinessStatus)}
                       </span>
                     </div>
                   </div>
@@ -180,16 +182,16 @@ export const FamilyHealthHub: React.FC<FamilyHealthHubProps> = ({
                   <div className="p-2.5 rounded-xl bg-rose-100/70 border border-rose-200 space-y-1">
                     <div className="flex items-center gap-1.5 text-rose-900 font-bold text-[11px]">
                       <AlertTriangle className="w-3.5 h-3.5 text-rose-700 shrink-0" />
-                      <span>{memberAlerts.length} Low Metric Alert Triggered</span>
+                      <span>{memberAlerts.length} {t('family.low_metric_alert', 'Low Metric Alert Triggered')}</span>
                     </div>
                     <p className="text-[11px] text-rose-800 font-normal line-clamp-2 leading-tight">
-                      {memberAlerts[0].message}
+                      {tText(memberAlerts[0].message)}
                     </p>
                   </div>
                 ) : (
                   <div className="flex items-center gap-1.5 text-[11px] text-emerald-800 bg-emerald-50/70 border border-emerald-200 px-2.5 py-1.5 rounded-xl">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
-                    <span>All biometrics in optimal recovery band</span>
+                    <span>{t('family.all_optimal', 'All biometrics in optimal recovery band')}</span>
                   </div>
                 )}
 
@@ -203,7 +205,7 @@ export const FamilyHealthHub: React.FC<FamilyHealthHubProps> = ({
                     <span className="capitalize">{member.connectedWearables.join(', ').replace(/_/g, ' ')}</span>
                   </div>
                   <span className="text-[10px] font-semibold text-stone-600 bg-stone-100 px-2 py-0.5 rounded-md border border-stone-200">
-                    {member.accessLevel.replace(/_/g, ' ')}
+                    {tText(member.accessLevel.replace(/_/g, ' '))}
                   </span>
                 </div>
 
@@ -219,7 +221,7 @@ export const FamilyHealthHub: React.FC<FamilyHealthHubProps> = ({
                       : 'bg-white hover:bg-stone-100 border border-stone-200 text-stone-800 hover:border-stone-300'
                   }`}
                 >
-                  <span>{isSelected ? 'Currently Viewing Vitals' : `View ${member.name.split(' ')[0]}'s Stats`}</span>
+                  <span>{isSelected ? t('family.viewing_now', 'Currently Viewing Vitals') : `${t('family.view_stats_prefix', 'View')} ${member.name.split(' ')[0]}'s ${t('family.stats_suffix', 'Stats')}`}</span>
                   <ArrowRight className="w-3 h-3" />
                 </button>
               </div>
@@ -234,14 +236,14 @@ export const FamilyHealthHub: React.FC<FamilyHealthHubProps> = ({
         <div className="flex items-center gap-2">
           <Sparkles className="w-3.5 h-3.5 text-teal-800 shrink-0" />
           <span>
-            Family sync standardizes disparate Apple Health, Garmin, WHOOP, and Oura metrics into unified readiness scales.
+            {t('family.sync_note', 'Family sync standardizes disparate Apple Health, Garmin, WHOOP, and Oura metrics into unified readiness scales.')}
           </span>
         </div>
         <button
           onClick={onOpenAddModal}
           className="text-teal-800 hover:text-teal-900 font-semibold underline shrink-0 cursor-pointer"
         >
-          Add Another Profile
+          {t('family.add_another', 'Add Another Profile')}
         </button>
       </div>
 

@@ -80,21 +80,24 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Center navigation links for Landing */}
         {currentView === 'landing' ? (
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-stone-600">
+          <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-stone-600">
             <a href="#overview" className="hover:text-stone-900 transition-colors">
               {t('nav.platform', 'Platform')}
+            </a>
+            <a href="#weather-circadian" className="hover:text-stone-900 transition-colors">
+              {t('nav.weather', 'Weather & Circadian')}
+            </a>
+            <a href="#activity-recommender" className="hover:text-stone-900 transition-colors">
+              {t('nav.activities', 'Local Activities')}
+            </a>
+            <a href="#pricing" className="hover:text-stone-900 transition-colors font-semibold text-teal-800">
+              {t('nav.pricing', 'Pricing & Plans')}
             </a>
             <a href="#compatibility" className="hover:text-stone-900 transition-colors">
               {t('nav.wearable_sync', 'Wearable Sync')}
             </a>
             <a href="#science" className="hover:text-stone-900 transition-colors">
-              {t('nav.science', 'Science & Insights')}
-            </a>
-            <a href="#community" className="hover:text-stone-900 transition-colors">
-              {t('nav.community', 'Community')}
-            </a>
-            <a href="#trust" className="hover:text-stone-900 transition-colors">
-              {t('nav.compliance', 'Compliance & Trust')}
+              {t('nav.science', 'Science')}
             </a>
           </nav>
         ) : (

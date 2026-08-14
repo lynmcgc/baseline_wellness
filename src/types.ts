@@ -2,7 +2,7 @@ export type UserGoal = 'training_load' | 'stress_resilience' | 'deep_sleep' | 'l
 
 export type WearableBrand = 'garmin' | 'apple_health' | 'oura' | 'fitbit' | 'whoop' | 'polar' | 'coros';
 
-export type SubscriptionTier = 'free' | 'pro' | 'elite';
+export type SubscriptionTier = 'free' | 'starter' | 'pro' | 'family' | 'elite';
 
 export interface WearableDevice {
   id: WearableBrand;
@@ -134,4 +134,95 @@ export interface LanguageOption {
   nativeName: string;
   flag: string;
   region: string;
+}
+
+export interface WeatherData {
+  city: string;
+  country: string;
+  lat: number;
+  lng: number;
+  temperatureC: number;
+  temperatureF: number;
+  feelsLikeF: number;
+  condition: string;
+  conditionIcon: 'sunny' | 'partly-cloudy' | 'cloudy' | 'rain' | 'wind' | 'snow';
+  humidityPercent: number;
+  uvIndex: number;
+  uvDescription: string;
+  airQualityIndex: number; // US AQI e.g. 28 (Good)
+  airQualityLabel: 'Good' | 'Moderate' | 'Sensitive' | 'Unhealthy';
+  windSpeedMph: number;
+  sunriseTime: string;
+  sunsetTime: string;
+  optimalOutdoorWindow: string; // e.g. "8:00 AM - 11:30 AM (UV 2, 64°F)"
+  circadianLightAdvice: string;
+  biometricOutdoorSuitability: 'optimal' | 'moderate' | 'indoor_preferable';
+}
+
+export type WellnessLocationCategory =
+  | 'cold_plunge_sauna'
+  | 'scenic_trail'
+  | 'calisthenics_park'
+  | 'lap_pool'
+  | 'breathwork_studio'
+  | 'recovery_lounge';
+
+export interface WellnessLocation {
+  id: string;
+  name: string;
+  category: WellnessLocationCategory;
+  categoryLabel: string;
+  rating: number;
+  reviewCount: number;
+  address: string;
+  city: string;
+  lat: number;
+  lng: number;
+  distanceMiles?: number;
+  tags: string[];
+  features?: string[];
+  description: string;
+  suitabilityForReadiness: 'High Recovery Match' | 'Ideal for Zone 2' | 'Parasympathetic Rest';
+  priceLevel: '$' | '$$' | '$$$' | 'Free';
+  hours: string;
+  phone?: string;
+  website?: string;
+}
+
+export interface LocalActivitySuggestion {
+  id: string;
+  title: string;
+  type: string;
+  locationName: string;
+  weatherSuitability: string;
+  biometricMatchReason: string;
+  duration: string;
+  intensity: 'Gentle Recovery' | 'Moderate Aerobic' | 'High Intensity' | 'Restorative';
+  recommendedTime: string;
+}
+
+export interface PricingPlan {
+  id: 'starter' | 'pro' | 'family';
+  name: string;
+  badge?: string;
+  tagline: string;
+  monthlyPrice: number;
+  annualMonthlyPrice: number; // e.g. $15/mo billed annually
+  annualBilledTotal: number; // e.g. $180
+  popular?: boolean;
+  features: string[];
+  highlight?: string;
+  ctaText: string;
+}
+
+export interface PaymentSubmission {
+  planId: 'starter' | 'pro' | 'family';
+  interval: 'monthly' | 'annual';
+  name: string;
+  email: string;
+  cardNumber: string;
+  expiry: string;
+  cvc: string;
+  zip: string;
+  country: string;
 }

@@ -1,7 +1,10 @@
 import React from 'react';
 import { Watch, CircleDot, Activity, HeartPulse, RefreshCw, Layers } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const WearableCompatibilitySection: React.FC = () => {
+  const { t, tText } = useLanguage();
+
   const ecosystems = [
     {
       name: 'Garmin Connect',
@@ -37,13 +40,13 @@ export const WearableCompatibilitySection: React.FC = () => {
         <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-stone-200 text-xs font-semibold text-teal-800 shadow-xs">
             <RefreshCw className="w-3.5 h-3.5" />
-            <span>Brand-Agnostic Biometric Engine</span>
+            <span>{t('compat.pill', 'Brand-Agnostic Biometric Engine')}</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-bold text-stone-900 tracking-tight">
-            Never be locked into a single wearable ecosystem again.
+            {t('compat.title', 'Never be locked into a single wearable ecosystem again.')}
           </h2>
           <p className="text-sm sm:text-base text-stone-600 leading-relaxed font-normal">
-            Whether you wear a Garmin for running, an Oura ring for sleep, or an Apple Watch during work hours, Baseline unifies disparate data streams into one harmonious, non-conflicting daily wellness score.
+            {t('compat.description', 'Whether you wear a Garmin for running, an Oura ring for sleep, or an Apple Watch during work hours, Baseline unifies disparate data streams into one harmonious, non-conflicting daily wellness score.')}
           </p>
         </div>
 
@@ -59,12 +62,12 @@ export const WearableCompatibilitySection: React.FC = () => {
                   <eco.icon className="w-5 h-5" />
                 </div>
                 <h3 className="font-semibold text-base text-stone-900">{eco.name}</h3>
-                <p className="text-xs text-stone-600 leading-relaxed font-normal">{eco.description}</p>
+                <p className="text-xs text-stone-600 leading-relaxed font-normal">{tText(eco.description)}</p>
               </div>
 
               <div className="pt-3 border-t border-stone-100">
                 <span className="text-[11px] font-semibold uppercase tracking-wider text-stone-500 block mb-2">
-                  Unified Data Points
+                  {t('compat.unified_points', 'Unified Data Points')}
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {eco.metrics.map((m) => (
@@ -72,7 +75,7 @@ export const WearableCompatibilitySection: React.FC = () => {
                       key={m}
                       className="text-[11px] px-2 py-0.5 rounded bg-stone-50 border border-stone-200 text-stone-700 font-medium"
                     >
-                      {m}
+                      {tText(m)}
                     </span>
                   ))}
                 </div>
@@ -87,9 +90,9 @@ export const WearableCompatibilitySection: React.FC = () => {
             <Layers className="w-6 h-6" />
           </div>
           <div>
-            <h4 className="text-sm font-semibold text-stone-900">Continuous Normalization Algorithm</h4>
-            <p className="text-xs text-stone-600 mt-1">
-              Raw metrics are adjusted against your individual 30-day baseline rather than generic population averages, ensuring your score reflects true personal physiological state rather than sensor variance.
+            <h4 className="text-sm font-semibold text-stone-900">{t('compat.algorithm_title', 'Continuous Normalization Algorithm')}</h4>
+            <p className="text-xs text-stone-600 mt-1 font-normal">
+              {t('compat.algorithm_desc', 'Raw metrics are adjusted against your individual 30-day baseline rather than generic population averages, ensuring your score reflects true personal physiological state rather than sensor variance.')}
             </p>
           </div>
         </div>

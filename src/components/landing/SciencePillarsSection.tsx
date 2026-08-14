@@ -1,7 +1,10 @@
 import React from 'react';
 import { Brain, Heart, Users, Sparkles, SlidersHorizontal } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const SciencePillarsSection: React.FC = () => {
+  const { t, tText } = useLanguage();
+
   const pillars = [
     {
       icon: Sparkles,
@@ -41,13 +44,13 @@ export const SciencePillarsSection: React.FC = () => {
         <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-stone-200 text-xs font-semibold text-teal-800 shadow-xs">
             <Brain className="w-3.5 h-3.5" />
-            <span>Science-Backed Methodology</span>
+            <span>{t('science.pill', 'Science-Backed Methodology')}</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-bold text-stone-900 tracking-tight">
-            Designed for health-conscious adults who value precision over hype.
+            {t('science.title', 'Designed for health-conscious adults who value precision over hype.')}
           </h2>
           <p className="text-sm sm:text-base text-stone-600 leading-relaxed font-normal">
-            We avoid alarming red warning states and superficial streaks. Every recommendation is calibrated against peer-reviewed autonomic research and circadian chronobiology.
+            {t('science.description', 'We avoid alarming red warning states and superficial streaks. Every recommendation is calibrated against peer-reviewed autonomic research and circadian chronobiology.')}
           </p>
         </div>
 
@@ -63,19 +66,19 @@ export const SciencePillarsSection: React.FC = () => {
                   <p.icon className="w-6 h-6" />
                 </div>
                 <span className="text-xs font-semibold uppercase tracking-wider text-teal-800 px-2.5 py-1 rounded-full bg-teal-50 border border-teal-200">
-                  {p.tag}
+                  {tText(p.tag)}
                 </span>
               </div>
 
-              <h3 className="text-xl font-bold text-stone-900">{p.title}</h3>
+              <h3 className="text-xl font-bold text-stone-900">{tText(p.title)}</h3>
               
               <p className="text-sm text-stone-600 leading-relaxed font-normal">
-                {p.description}
+                {tText(p.description)}
               </p>
 
               <div className="pt-2">
                 <span className="inline-flex items-center text-xs font-medium text-teal-800 bg-stone-50 px-3 py-1.5 rounded-lg border border-stone-200">
-                  ✓ {p.highlight}
+                  ✓ {tText(p.highlight)}
                 </span>
               </div>
             </div>

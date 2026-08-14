@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Users, Clock, Play } from 'lucide-react';
 import { MOCK_CHALLENGES, MOCK_CLASSES } from '../../data/mockMetrics';
 import { CommunityChallenge, CommunityClass } from '../../types';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface CommunitySidebarProps {
   onPlayClass: (cls: CommunityClass) => void;
@@ -10,6 +11,7 @@ interface CommunitySidebarProps {
 export const CommunitySidebar: React.FC<CommunitySidebarProps> = ({ onPlayClass }) => {
   const [activeTab, setActiveTab] = useState<'challenges' | 'classes' | 'cohorts'>('challenges');
   const [challenges, setChallenges] = useState<CommunityChallenge[]>(MOCK_CHALLENGES);
+  const { t, tText } = useLanguage();
 
   const toggleJoin = (id: string) => {
     setChallenges((prev) =>
@@ -33,10 +35,10 @@ export const CommunitySidebar: React.FC<CommunitySidebarProps> = ({ onPlayClass 
       <div className="flex items-center justify-between border-b border-stone-200 pb-3">
         <div className="flex items-center gap-2">
           <Users className="w-4 h-4 text-teal-800" />
-          <h3 className="font-bold text-sm text-stone-900">Community & Guidance</h3>
+          <h3 className="font-bold text-sm text-stone-900">{t('community.title', 'Community & Guidance')}</h3>
         </div>
         <span className="text-[10px] font-semibold text-teal-800 px-2 py-0.5 rounded bg-teal-50 border border-teal-200">
-          Secondary Hub
+          {t('community.secondary_hub', 'Secondary Hub')}
         </span>
       </div>
 
@@ -50,7 +52,7 @@ export const CommunitySidebar: React.FC<CommunitySidebarProps> = ({ onPlayClass 
               : 'text-stone-600 hover:text-stone-900'
           }`}
         >
-          Challenges
+          {t('community.challenges', 'Challenges')}
         </button>
         <button
           onClick={() => setActiveTab('classes')}
@@ -60,7 +62,7 @@ export const CommunitySidebar: React.FC<CommunitySidebarProps> = ({ onPlayClass 
               : 'text-stone-600 hover:text-stone-900'
           }`}
         >
-          Classes
+          {t('community.classes', 'Classes')}
         </button>
         <button
           onClick={() => setActiveTab('cohorts')}
@@ -70,7 +72,7 @@ export const CommunitySidebar: React.FC<CommunitySidebarProps> = ({ onPlayClass 
               : 'text-stone-600 hover:text-stone-900'
           }`}
         >
-          Cohorts
+          {t('community.cohorts', 'Cohorts')}
         </button>
       </div>
 
@@ -83,16 +85,16 @@ export const CommunitySidebar: React.FC<CommunitySidebarProps> = ({ onPlayClass 
               className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 space-y-2.5"
             >
               <div className="flex items-center justify-between text-xs">
-                <span className="font-semibold text-stone-900">{ch.title}</span>
-                <span className="text-[11px] text-stone-500">{ch.badge}</span>
+                <span className="font-semibold text-stone-900">{tText(ch.title)}</span>
+                <span className="text-[11px] text-stone-500">{tText(ch.badge)}</span>
               </div>
 
-              <p className="text-[11px] text-stone-600 leading-snug font-normal">{ch.targetDescription}</p>
+              <p className="text-[11px] text-stone-600 leading-snug font-normal">{tText(ch.targetDescription)}</p>
 
               {ch.isJoined && (
                 <div className="space-y-1">
                   <div className="flex justify-between text-[10px] text-stone-500">
-                    <span>Day {ch.currentDay} of {ch.durationDays}</span>
+                    <span>{t('community.day', 'Day')} {ch.currentDay} {t('community.of', 'of')} {ch.durationDays}</span>
                     <span className="text-teal-800 font-semibold">{ch.userProgress}%</span>
                   </div>
                   <div className="w-full bg-stone-200 h-1 rounded-full overflow-hidden">
@@ -106,7 +108,7 @@ export const CommunitySidebar: React.FC<CommunitySidebarProps> = ({ onPlayClass 
 
               <div className="flex items-center justify-between pt-1 text-xs">
                 <span className="text-[11px] text-stone-500 font-normal">
-                  {ch.participantsCount.toLocaleString()} participants
+                  {ch.participantsCount.toLocaleString()} {t('community.participants', 'participants')}
                 </span>
                 <button
                   onClick={() => toggleJoin(ch.id)}
@@ -116,7 +118,7 @@ export const CommunitySidebar: React.FC<CommunitySidebarProps> = ({ onPlayClass 
                       : 'bg-stone-900 hover:bg-stone-800 text-white'
                   }`}
                 >
-                  {ch.isJoined ? 'Joined' : 'Join Challenge'}
+                  {ch.isJoined ? t('community.joined', 'Joined') : t('community.join_challenge', 'Join Challenge')}
                 </button>
               </div>
             </div>
@@ -134,19 +136,19 @@ export const CommunitySidebar: React.FC<CommunitySidebarProps> = ({ onPlayClass 
             >
               <div className="flex items-center justify-between text-xs">
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-stone-200 text-stone-800">
-                  {cls.category}
+                  {tText(cls.category)}
                 </span>
                 <span className="text-[11px] text-stone-500 flex items-center gap-1 font-normal">
                   <Clock className="w-3 h-3" /> {cls.durationMinutes}m
                 </span>
               </div>
 
-              <h4 className="text-xs font-semibold text-stone-900">{cls.title}</h4>
+              <h4 className="text-xs font-semibold text-stone-900">{tText(cls.title)}</h4>
               <p className="text-[11px] text-stone-500 font-normal">{cls.instructor}</p>
 
               <div className="pt-2 flex items-center justify-between">
                 <span className="text-[10px] text-stone-500 font-normal">
-                  {cls.type === 'live' ? cls.scheduledTime : `${cls.attendeesCount} completed`}
+                  {cls.type === 'live' ? tText(cls.scheduledTime || '') : `${cls.attendeesCount} ${t('community.completed_cnt', 'completed')}`}
                 </span>
 
                 <button
@@ -154,7 +156,7 @@ export const CommunitySidebar: React.FC<CommunitySidebarProps> = ({ onPlayClass 
                   className="bg-teal-700 hover:bg-teal-800 text-white font-semibold text-xs px-3 py-1 rounded-lg flex items-center gap-1 transition-colors cursor-pointer shadow-xs"
                 >
                   <Play className="w-3 h-3 fill-current" />
-                  {cls.type === 'live' ? 'Join Session' : 'Start Player'}
+                  {cls.type === 'live' ? t('community.join_session', 'Join Session') : t('community.start_player', 'Start Player')}
                 </button>
               </div>
             </div>
@@ -166,25 +168,25 @@ export const CommunitySidebar: React.FC<CommunitySidebarProps> = ({ onPlayClass 
       {activeTab === 'cohorts' && (
         <div className="space-y-3 flex-1 overflow-y-auto text-xs">
           <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 space-y-2">
-            <h4 className="font-semibold text-stone-900">Endurance Training Cohort</h4>
-            <p className="text-[11px] text-stone-600 font-normal">428 athletes optimizing Zone 2 aerobic volume.</p>
+            <h4 className="font-semibold text-stone-900">{t('community.cohort_endurance', 'Endurance Training Cohort')}</h4>
+            <p className="text-[11px] text-stone-600 font-normal">{t('community.cohort_endurance_desc', '428 athletes optimizing Zone 2 aerobic volume.')}</p>
             <div className="flex justify-between items-center text-[11px] pt-1">
-              <span className="text-stone-500 font-normal">Cohort Avg Readiness:</span>
+              <span className="text-stone-500 font-normal">{t('community.cohort_avg_readiness', 'Cohort Avg Readiness')}:</span>
               <span className="font-bold text-teal-800">82 / 100</span>
             </div>
           </div>
 
           <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 space-y-2">
-            <h4 className="font-semibold text-stone-900">Circadian 10 PM Wind-Down</h4>
-            <p className="text-[11px] text-stone-600 font-normal">892 professionals prioritizing sleep onset stability.</p>
+            <h4 className="font-semibold text-stone-900">{t('community.cohort_circadian', 'Circadian 10 PM Wind-Down')}</h4>
+            <p className="text-[11px] text-stone-600 font-normal">{t('community.cohort_circadian_desc', '892 professionals prioritizing sleep onset stability.')}</p>
             <div className="flex justify-between items-center text-[11px] pt-1">
-              <span className="text-stone-500 font-normal">Cohort Avg Deep Sleep:</span>
+              <span className="text-stone-500 font-normal">{t('community.cohort_avg_deep', 'Cohort Avg Deep Sleep')}:</span>
               <span className="font-bold text-teal-800">1h 48m</span>
             </div>
           </div>
 
           <div className="p-3 rounded-lg bg-stone-100 border border-stone-200 text-[11px] text-stone-600 font-normal">
-            Cohort data is completely aggregated and anonymized in accordance with strict privacy guidelines.
+            {t('community.cohort_privacy', 'Cohort data is completely aggregated and anonymized in accordance with strict privacy guidelines.')}
           </div>
         </div>
       )}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { Sparkles, Info, ChevronDown, ChevronUp, Lock, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 import { MetricDefinition } from '../../types';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface MetricCardProps {
   metric: MetricDefinition;
@@ -15,6 +16,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   onLockedClick,
 }) => {
   const [showDetails, setShowDetails] = useState(false);
+  const { t, tText } = useLanguage();
 
   const getStatusColor = (status: MetricDefinition['status']) => {
     switch (status) {
@@ -31,6 +33,28 @@ export const MetricCard: React.FC<MetricCardProps> = ({
     }
   };
 
+  const getTranslatedCategory = (cat: string) => {
+    switch (cat) {
+      case 'recovery':
+        return t('dashboard.recovery_sleep', 'Recovery & Sleep');
+      case 'sleep':
+        return t('dashboard.recovery_sleep', 'Recovery & Sleep');
+      case 'cardiovascular':
+        return t('dashboard.cardiovascular', 'Cardiovascular');
+      case 'stress':
+        return t('dashboard.stress_autonomic', 'Stress & Autonomic');
+      default:
+        return tText(cat);
+    }
+  };
+
+  const metricTitleKey = `metric.${metric.id}`;
+  const localizedTitle = t(metricTitleKey, tText(metric.title));
+  const localizedStatus = tText(metric.status);
+  const localizedInsight = tText(metric.plainLanguageInsight);
+  const localizedAction = tText(metric.actionableGuidance);
+  const localizedScience = tText(metric.scientificContext);
+
   return (
     <div
       className={`rounded-2xl border transition-all flex flex-col justify-between ${
@@ -45,7 +69,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider">
-                {metric.category}
+                {getTranslatedCategory(metric.category)}
               </span>
               {metric.isPremiumOnly && (
                 <button
@@ -57,7 +81,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
               )}
             </div>
             <h3 className="text-sm sm:text-base font-bold text-stone-900 mt-0.5">
-              {metric.title}
+              {localizedTitle}
             </h3>
           </div>
 
@@ -66,7 +90,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
               metric.status
             )}`}
           >
-            {metric.status}
+            {localizedStatus}
           </span>
         </div>
 
@@ -91,7 +115,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
               <ArrowDownRight className="w-3.5 h-3.5" />
             )}
             <span>
-              {metric.changePercentage > 0 ? `+${metric.changePercentage}%` : `${metric.changePercentage}%`} vs baseline
+              {metric.changePercentage > 0 ? `+${metric.changePercentage}%` : `${metric.changePercentage}%`} {t('metric.vs_baseline', 'vs baseline')}
             </span>
           </div>
         </div>
@@ -99,9 +123,9 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         {/* Plain Language Interpretation Layer */}
         <div className="p-3 rounded-xl bg-stone-50 border border-stone-200 my-3 text-xs leading-relaxed text-stone-700 font-normal">
           <div className="flex items-center gap-1 text-[11px] font-semibold text-teal-800 mb-1">
-            <Sparkles className="w-3 h-3" /> Plain-Language Insight
+            <Sparkles className="w-3 h-3" /> {t('metric.plain_insight', 'Plain-Language Insight')}
           </div>
-          <p>{metric.plainLanguageInsight}</p>
+          <p>{localizedInsight}</p>
         </div>
 
         {/* Mini 7-Day Trend Line (Recharts) */}
@@ -150,7 +174,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         >
           <span className="flex items-center gap-1.5 font-medium">
             <Info className="w-3.5 h-3.5 text-stone-400" />
-            {showDetails ? 'Hide Scientific Context' : 'View Actionable Protocol'}
+            {showDetails ? t('metric.hide_science', 'Hide Scientific Context') : t('metric.view_protocol', 'View Actionable Protocol')}
           </span>
           {showDetails ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
         </button>
@@ -158,12 +182,12 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         {showDetails && (
           <div className="space-y-2.5 pt-2 text-xs animate-in fade-in duration-150">
             <div className="p-2.5 rounded-lg bg-stone-50 border border-stone-200 text-stone-700">
-              <strong className="text-stone-900 font-semibold block mb-0.5">Actionable Protocol:</strong>
-              {metric.actionableGuidance}
+              <strong className="text-stone-900 font-semibold block mb-0.5">{t('metric.actionable_protocol', 'Actionable Protocol')}:</strong>
+              {localizedAction}
             </div>
             <div className="p-2.5 rounded-lg bg-stone-50/60 border border-stone-200 text-stone-600 text-[11px]">
-              <strong className="text-stone-800 font-semibold block mb-0.5">Biometric Physiology:</strong>
-              {metric.scientificContext}
+              <strong className="text-stone-800 font-semibold block mb-0.5">{t('metric.scientific_context', 'Scientific & Physiological Context')}:</strong>
+              {localizedScience}
             </div>
           </div>
         )}
